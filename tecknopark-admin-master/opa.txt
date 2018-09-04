@@ -1,0 +1,84 @@
+черновик
+
+<script>
+import _ from 'lodash'
+import { mapMutations } from 'vuex'
+import Api from '@/api'
+export default {
+    name: 'News',
+    data () {
+      return {
+        News: {
+          title: ''
+        },
+      }
+    },
+	mounted () {
+      this.getNews()
+    },
+	methods: {
+	getNews () {
+        Api.rest({
+          url: 'news',
+          method: 'get'
+        })
+          .then(response => {
+            this.News = response.data
+          })
+      },
+	
+	}
+};
+</script>
+
+columns: [
+        {
+          label: 'Заголовок',
+          field: 'title',
+          filterable: true,
+        },
+		{
+          label: 'id',
+          field: 'idd',
+          type: 'number',
+          html: false,
+          filterable: true,
+        },
+      ],
+      rows: [ {
+	  title: 'title',
+      idd: news.id,
+    },],
+	<template>
+  <div>
+  
+  
+  <vue-good-table
+  title="Dynamic Table"
+  :columns="columns"
+  :rows="rows"
+  :lineNumbers="true"
+  :paginate="true"
+  styleClass="table condensed table-bordered table-striped">
+  <template slot="table-row" scope="props">
+    <td>{{ props.row.id }}</td>
+    <td class="fancy">{{ props.row.title }}</td>
+  </template>
+</vue-good-table>
+  
+   <vue-good-table
+      title="Demo Table"
+      :columns="columns"
+      :rows="news"
+      :paginate="true"
+      :lineNumbers="true"/>
+  </div>
+</template>
+
+	
+	<vue-good-table
+      title="Demo Table"
+      :columns="columns"
+      :rows="rows"
+      :paginate="true"
+      :lineNumbers="true"/>
